@@ -11,6 +11,10 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_core.messages import AIMessage, HumanMessage
 import tempfile
 
+# ========== API Keys (Hardcoded) ==========
+GROQ_API_KEY = "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"
+GOOGLE_API_KEY = "AIzaSyB5lg92aDFXgFh3f1nvHjFZEZ21R0gm558"
+
 # ========== App Configuration ==========
 st.set_page_config(
     page_title="RAG APP",
@@ -23,10 +27,7 @@ st.set_page_config(
 with st.sidebar:
     st.title("🔑 AI Configuration")
     
-    # API Key Inputs
-    groq_api_key = st.text_input("Groq API Key", type="password")
-    google_api_key = st.text_input("Google API Key", type="password")
-    
+    # Removed the API key input fields since they're now hardcoded
     model_name = st.selectbox(
         "Groq Model",
         ["Llama3-8b-8192", "Llama3-70b-8192", "Mixtral-8x7b-32768"],
@@ -39,31 +40,27 @@ with st.sidebar:
     st.markdown("---")
     st.title("📄 Document Setup")
     st.markdown("""<div class="warning-box"><strong>Note:</strong> Answers are based only on document content.</div>""", unsafe_allow_html=True)
-
-# Check for API keys
-if not groq_api_key:
-    st.error("Please enter your Groq API Key in the sidebar.")
-    st.stop()
-
-if not google_api_key:
-    st.error("Please enter your Google API Key in the sidebar.")
-    st.stop()
+    
+    # Added the "Built by" credit
+    st.markdown("---")
+    st.markdown("### Built by")
+    st.markdown("**Ouchtoubane Abdo**")
 
 # ========== Core Functionality ==========
 def initialize_llm():
-    """Initialize Groq LLM with user-provided API key"""
+    """Initialize Groq LLM with hardcoded API key"""
     return ChatGroq(
-        groq_api_key=groq_api_key,
+        groq_api_key=GROQ_API_KEY,
         model_name=model_name,
         temperature=temperature
     )
 
 llm = initialize_llm()
 
-# Initialize embeddings with user-provided API key
+# Initialize embeddings with hardcoded API key
 embeddings = GoogleGenerativeAIEmbeddings(
     model="models/embedding-001",
-    google_api_key=google_api_key
+    google_api_key=GOOGLE_API_KEY
 )
 
 # ========== Document Processing ==========
