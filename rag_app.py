@@ -11,7 +11,9 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_core.messages import AIMessage, HumanMessage
 import tempfile
 
-
+# ========== API Keys (Hardcoded) ==========
+GROQ_API_KEY = "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"
+GOOGLE_API_KEY = "AIzaSyBxtjUng4AIOTUZ9-_9SP5bv7rcaIP6Ziw"
 
 # ========== App Configuration ==========
 st.set_page_config(
